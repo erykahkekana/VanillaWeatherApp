@@ -17,6 +17,9 @@ function refreshWeather(response) {
     humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
     windElement.innerHTML = `${response.data.wind.speed} km/h`;
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
+
+    getForecast(response.data.city);
+
 }
 
 function formatDate(date) {
@@ -59,7 +62,25 @@ searchFormElement.addEventListener("submit",handleSearchSubmit);
 
 //API INTEGRATION
 
-function displayForecast() {
+function getForecast(city) {
+
+    let apiKey = "7a7f9a4b918ob1073c632f5t4cf473d8";
+    let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    axios(apiURL).then(displayForecast);
+    console.log(apiURL);
+
+}
+
+
+
+
+
+
+
+function displayForecast(response) {
+
+    console.log(response.data);
+
     let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     let forecastHtml = "";
   
@@ -89,4 +110,5 @@ function displayForecast() {
   }
 
 searchCity("Polokwane");
-displayForecast();
+
+//displayForecast();
